@@ -28,6 +28,10 @@ class Login extends Component
      */
     public function login(): void
     {
+        // Check if it's an admin trying to login through user login
+        if (Auth::validate(['email' => $this->email, 'password' => $this->password, 'is_admin' => true])) {
+            throw ValidationException::withMessages(['email' => 'Please use the admin login page.']);
+        }
         $this->validate();
 
         $this->ensureIsNotRateLimited();

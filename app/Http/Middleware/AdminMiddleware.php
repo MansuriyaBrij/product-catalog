@@ -15,9 +15,15 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->is_admin) {
-            abort(403, 'Unauthorized.');
+        if (!auth()->check()) {
+            return redirect()->route('admin.login');
         }
+        
+        if (!auth()->user()->is_admin) {
+            auth()->logout();
+            return redirect()->route('admin.login')->with('error', 'This area is restricted to administrators.');
+        }
+        
         return $next($request);
     }
 }
