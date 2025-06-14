@@ -80,26 +80,21 @@ class ProductList extends Component
         $this->validate();
 
         try {
-            if ($this->image && $this->image->isValid()) {
-                $imagePath = $this->image->store('products', 'public');
-            } else {
-                session()->flash('error', 'Invalid image file.');
-                return;
-            }
-
+            $imagePath = $this->image->store('products', 'public');
+            
             Product::create([
                 'name' => $this->name,
                 'description' => $this->description,
                 'price' => $this->price,
                 'subcategory_id' => $this->subcategory_id,
-                'image_path' => $imagePath ?? null,
+                'image_path' => $imagePath,
                 'is_active' => $this->is_active,
             ]);
 
             $this->reset(['name', 'description', 'price', 'subcategory_id', 'image', 'is_active']);
             session()->flash('message', 'Product created successfully.');
         } catch (\Exception $e) {
-            session()->flash('error', 'Error uploading image. Please try again.');
+            session()->flash('error', 'Error creating product. Please try again.');
         }
     }
 
@@ -131,18 +126,15 @@ class ProductList extends Component
                 'is_active' => $this->is_active,
             ];
 
-            if ($this->image && $this->image->isValid()) {
-                // Delete old image
+            if ($this->image) {
                 if ($product->image_path) {
                     Storage::disk('public')->delete($product->image_path);
                 }
-                
-                // Store new image
                 $data['image_path'] = $this->image->store('products', 'public');
             }
 
             $product->update($data);
-
+            
             $this->reset(['name', 'description', 'price', 'subcategory_id', 'image', 'is_active', 'editingProductId', 'isEditing', 'selectedCategory']);
             session()->flash('message', 'Product updated successfully.');
         } catch (\Exception $e) {
@@ -152,15 +144,18 @@ class ProductList extends Component
 
     public function delete($productId)
     {
-        $product = Product::find($productId);
-        
-        // Delete the image file
-        if ($product->image_path) {
-            Storage::disk('public')->delete($product->image_path);
+        try {
+            $product = Product::find($productId);
+            
+            if ($product->image_path) {
+                Storage::disk('public')->delete(str_replace('\\', '/', $product->image_path));
+            }
+            
+            $product->delete();
+            session()->flash('message', 'Product deleted successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error deleting product: ' . $e->getMessage());
         }
-        
-        $product->delete();
-        session()->flash('message', 'Product deleted successfully.');
     }
 
     public function render()

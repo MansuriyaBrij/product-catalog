@@ -57,10 +57,24 @@
 
                 <div>
                     <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Image</label>
-                    <input type="file" wire:model="image" id="image"
-                        class="mt-1 block w-full text-gray-700 dark:text-gray-300">
-                    @error('image') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    <input type="file" wire:model="image" id="image" accept="image/*"
+                        class="mt-1 block w-full text-gray-700 dark:text-gray-300 file:mr-4 file:py-2 file:px-4
+                        file:rounded-md file:border-0 file:text-sm file:font-semibold
+                        file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100
+                        dark:file:bg-zinc-700 dark:file:text-zinc-100">
+                    <div wire:loading wire:target="image" class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        Uploading...
+                    </div>
+                    @error('image') 
+                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span> 
+                    @enderror
                 </div>
+
+                @if (session()->has('error'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <div>
                     <label class="inline-flex items-center">
@@ -126,4 +140,3 @@
         </div>
     </div>
 </div>
-             
