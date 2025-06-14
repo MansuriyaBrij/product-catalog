@@ -6,14 +6,12 @@ use App\Livewire\Settings\Profile;
 use App\Livewire\Admin\Categories\CategoryList;
 use App\Livewire\Admin\Subcategories\SubcategoryList;
 use App\Livewire\Admin\Products\ProductList;
+use App\Livewire\Home\Index;
 use Illuminate\Support\Facades\Route;
-
 use App\Livewire\Admin\Auth\Login as AdminLogin;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', Index::class)->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
