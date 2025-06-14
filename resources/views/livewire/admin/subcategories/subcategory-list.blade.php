@@ -8,30 +8,31 @@
 
         <div class="bg-white dark:bg-zinc-900 shadow-sm rounded-lg p-6 mb-6">
             <h2 class="text-2xl font-bold mb-4 dark:text-white">{{ $isEditing ? 'Edit Subcategory' : 'Create New Subcategory' }}</h2>
-            <form wire:submit.prevent="{{ $isEditing ? 'update' : 'create' }}">
-                <div class="mb-4">
-                    <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
-                    <select wire:model.live="category_id" id="category_id"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('category_id') border-red-500 @enderror">
+            <form wire:submit.prevent="{{ $isEditing ? 'update' : 'create' }}" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Category</label>
+                    <select wire:model.live="category_id" 
+                        class="w-full mt-1 px-3 py-2 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="">Select Category</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    @error('category_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    @error('category_id') <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
-                    <input type="text" wire:model.live="name" id="name"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('name') border-red-500 @enderror">
-                    @error('name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
+                    <input type="text" wire:model.live="name" 
+                        class="w-full mt-1 px-3 py-2 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    @error('name') <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="mb-4">
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" wire:model="is_active" class="rounded border-gray-300 dark:border-gray-600 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        <span class="ml-2 dark:text-gray-300">Active</span>
+                <div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" wire:model="is_active" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                        <span class="ms-3 text-sm font-medium text-gray-700 dark:text-gray-300">Active</span>
                     </label>
                 </div>
 

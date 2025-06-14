@@ -11,9 +11,9 @@
             <form wire:submit.prevent="{{ $isEditing ? 'update' : 'create' }}" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="selectedCategory" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
-                        <select wire:model.live="selectedCategory" id="selectedCategory"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Category</label>
+                        <select wire:model.live="selectedCategory"
+                            class="w-full mt-1 px-3 py-2 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="">Select Category</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -22,64 +22,54 @@
                     </div>
 
                     <div>
-                        <label for="subcategory_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Subcategory</label>
-                        <select wire:model.live="subcategory_id" id="subcategory_id"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Subcategory</label>
+                        <select wire:model.live="subcategory_id"
+                            class="w-full mt-1 px-3 py-2 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="">Select Subcategory</option>
                             @foreach($subcategories as $subcategory)
                                 <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                             @endforeach
                         </select>
-                        @error('subcategory_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                        @error('subcategory_id') <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
-                        <input type="text" wire:model.live="name" id="name"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        @error('name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
+                        <input type="text" wire:model.live="name"
+                            class="w-full mt-1 px-3 py-2 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        @error('name') <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label for="price" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Price</label>
-                        <input type="number" step="0.01" wire:model.live="price" id="price"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        @error('price') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Price</label>
+                        <input type="number" step="0.01" wire:model.live="price"
+                            class="w-full mt-1 px-3 py-2 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        @error('price') <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
                 <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-                    <textarea wire:model.live="description" id="description" rows="3"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-zinc-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
-                    @error('description') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
+                    <textarea wire:model.live="description" rows="3"
+                        class="w-full mt-1 px-3 py-2 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    @error('description') <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
-                    <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Image</label>
-                    <input type="file" wire:model="image" id="image" accept="image/*"
-                        class="mt-1 block w-full text-gray-700 dark:text-gray-300 file:mr-4 file:py-2 file:px-4
-                        file:rounded-md file:border-0 file:text-sm file:font-semibold
-                        file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100
-                        dark:file:bg-zinc-700 dark:file:text-zinc-100">
-                    <div wire:loading wire:target="image" class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Uploading...
-                    </div>
-                    @error('image') 
-                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span> 
-                    @enderror
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Image</label>
+                    <input type="file" wire:model="image" accept="image/*"
+                        class="w-full mt-1 text-sm text-gray-500 dark:text-gray-400
+                        file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0
+                        file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700
+                        hover:file:bg-indigo-100 dark:file:bg-zinc-700 dark:file:text-zinc-100">
+                    @error('image') <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span> @enderror
                 </div>
 
-                @if (session()->has('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
                 <div>
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" wire:model="is_active" class="rounded border-gray-300 dark:border-gray-600 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        <span class="ml-2 text-gray-700 dark:text-gray-300">Active</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" wire:model="is_active" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                        <span class="ms-3 text-sm font-medium text-gray-700 dark:text-gray-300">Active</span>
                     </label>
                 </div>
 
@@ -140,3 +130,4 @@
         </div>
     </div>
 </div>
+                       
