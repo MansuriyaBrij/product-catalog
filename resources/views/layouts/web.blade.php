@@ -24,26 +24,7 @@
                 </a>
             </div>
               <div class="flex items-center space-x-4">
-                @auth
-                    <a href="{{ route('dashboard') }}" class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                        Dashboard
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                        @csrf
-                        <button type="submit" class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            Logout
-                        </button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                        Login
-                    </a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="rounded-lg px-4 py-2 text-sm font-semibold text-indigo-600 shadow-sm ring-1 ring-inset ring-indigo-200 hover:bg-indigo-50">
-                            Register
-                        </a>
-                    @endif
-                @endauth
+              
             </div>
         </nav>
     </header>
